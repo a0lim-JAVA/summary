@@ -45,10 +45,12 @@
 1. 의존성 추가
   - build.gradle에서 dependency 추가
     ```
-    implementation 'io.springfox:springfox-boot-starter:3.0.0'
-	  implementation 'io.springfox:springfox-swagger-ui:3.0.0'
-	  implementation 'io.springfox:springfox-bean-validators:3.0.0'
-    ```
-  - swaggerConfig 파일 생성 및 설정
+    # lombok plugin
+    implementation('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')    
+
+    # test 환경
+    testImplementation('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
     ```
 * 참고: https://inpa.tistory.com/entry/IntelliJ-%F0%9F%92%BD-Lombok-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0
