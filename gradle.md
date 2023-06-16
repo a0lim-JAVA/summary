@@ -54,3 +54,49 @@
     testAnnotationProcessor('org.projectlombok:lombok')
     ```
 * 참고: https://inpa.tistory.com/entry/IntelliJ-%F0%9F%92%BD-Lombok-%EC%84%A4%EC%B9%98-%EB%B0%A9%EB%B2%95-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0
+
+
+## QueryDsl
+1. version 정보 추가
+	```
+	buildscript {
+	    ext {
+		queryDslVersion = "5.0.0"
+	    }
+	}
+
+	plugins {
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+	    id 'java'
+	}
+	```
+2. 의존성 추가
+	```
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+	```
+3. 설정 추가
+	```
+	// querydsl에서 사용할 경로 설정
+	def querydslDir = "$buildDir/generated/querydsl"
+	// JPA 사용 여부와 사용할 경로를 설정
+	querydsl {
+	    jpa = true
+	    querydslSourcesDir = querydslDir
+	}
+	// build 시 사용할 sourceSet 추가
+	sourceSets {
+	    main.java.srcDir querydslDir
+	}
+	// querydsl 컴파일시 사용할 옵션 설정
+	compileQuerydsl{
+	    options.annotationProcessorPath = configurations.querydsl
+	}
+	// querydsl 이 compileClassPath 를 상속하도록 설정
+	configurations {
+	    compileOnly {
+		extendsFrom annotationProcessor
+	    }
+	    querydsl.extendsFrom compileClasspath
+	}
+	```
