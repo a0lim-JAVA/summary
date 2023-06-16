@@ -100,3 +100,4 @@
 	    querydsl.extendsFrom compileClasspath
 	}
 	```
+* 참고: https://data-make.tistory.com/728
